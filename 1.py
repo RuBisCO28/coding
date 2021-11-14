@@ -38,9 +38,3 @@ target = 0
 result = Solution()
 print(result.HashMap(nums, target))
 
-
-
-
-
-
-
