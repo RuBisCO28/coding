@@ -22,11 +22,29 @@
 #     else:
 #       return ''.join(arr[0])
 
+class Solution:
+  def longestPalindrome(self, s: str) -> str:
+    arr = list(s)
+    if len(arr) == 1:
+      return s
+    i = len(arr)
+    answer = ""
+    while i > 0:
+      for j in range(len(arr)-i+1):
+        # print(arr[j:i+j], arr[j], arr[i+j-1])
+        if arr[j] == arr[i+j-1]:
+          if arr[j:i+j] == list(reversed(arr[j:i+j])):
+            answer = arr[j:i+j]
+            return ''.join(answer)
+      i-=1
+    return ''.join(arr[0])
+
 result = Solution()
 # s = "ac"
 # s = "bb"
 # s = "aacabdkacaa"
-s = "aaaaaaaaaaaaaaaaaaaa"
+# s = "aaaaaaaaaa"
+s = "anugnxshgonmqydttcvmtsoaprxnhpmpovdolbidqiyqubirkvhwppcdyeouvgedccipsvnobrccbndzjdbgxkzdbcjsjjovnhpnbkurxqfupiprpbiwqdnwaqvjbqoaqzkqgdxkfczdkznqxvupdmnyiidqpnbvgjraszbvvztpapxmomnghfaywkzlrupvjpcvascgvstqmvuveiiixjmdofdwyvhgkydrnfuojhzulhobyhtsxmcovwmamjwljioevhafdlpjpmqstguqhrhvsdvinphejfbdvrvabthpyyphyqharjvzriosrdnwmaxtgriivdqlmugtagvsoylqfwhjpmjxcysfujdvcqovxabjdbvyvembfpahvyoybdhweikcgnzrdqlzusgoobysfmlzifwjzlazuepimhbgkrfimmemhayxeqxynewcnynmgyjcwrpqnayvxoebgyjusppfpsfeonfwnbsdonucaipoafavmlrrlplnnbsaghbawooabsjndqnvruuwvllpvvhuepmqtprgktnwxmflmmbifbbsfthbeafseqrgwnwjxkkcqgbucwusjdipxuekanzwimuizqynaxrvicyzjhulqjshtsqswehnozehmbsdmacciflcgsrlyhjukpvosptmsjfteoimtewkrivdllqiotvtrubgkfcacvgqzxjmhmmqlikrtfrurltgtcreafcgisjpvasiwmhcofqkcteudgjoqqmtucnwcocsoiqtfuoazxdayricnmwcg"
 print(result.longestPalindrome(s))
 
 
