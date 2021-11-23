@@ -287,3 +287,68 @@ if __name__ == '__main__':
 
     fptr.close()
 ```
+
+# Lonely Integer
+```python
+def lonelyinteger(a):
+    flag = [0] * len(a)
+    for i in range(len(a)):
+        for j in range(len(a)):
+            if i != j and a[i] == a[j]:
+                flag[i] = 1
+    if 0 in flag:
+        return a[flag.index(0)]
+    else:
+        return a[0]
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    a = list(map(int, input().rstrip().split()))
+
+    result = lonelyinteger(a)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
+```
+
+# Grading Students
+```python
+import math
+# 1: 4, 2: 3, 3: 2, 4: 1, 5: 0, 6: 4, 7: 3, 8: 2, 9: 1, 0: 0
+
+def gradingStudents(grades):
+    # Write your code here
+    answer = []
+    for i in range(len(grades)):
+        next_mul_val = 5 * (math.floor(grades[i] / 5) + 1)
+        if next_mul_val >= 37:
+            if next_mul_val - grades[i] < 3:
+                answer.append(next_mul_val)
+            else:
+                answer.append(grades[i])
+        else:
+            answer.append(grades[i])
+    return answer
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    grades_count = int(input().strip())
+
+    grades = []
+
+    for _ in range(grades_count):
+        grades_item = int(input().strip())
+        grades.append(grades_item)
+
+    result = gradingStudents(grades)
+
+    fptr.write('\n'.join(map(str, result)))
+    fptr.write('\n')
+
+    fptr.close()
+```
