@@ -197,3 +197,19 @@ def flippingBits(n):
     answer = [ '0' if s[i] == '1' else '1' for i in range(len(s))]
     return int(''.join(answer),2)
 ```
+
+# Diagonal Difference
+```python
+def diagonalDifference(arr):
+    x = 0
+    y = 0
+    j = len(arr) - 1
+    for i in range(len(arr)):
+        x += arr[i][i]
+        y += arr[i][j]
+        j -= 1
+    if x > y:
+        return x - y
+    else:
+        return y - x
+```
