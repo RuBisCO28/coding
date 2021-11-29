@@ -213,3 +213,57 @@ def diagonalDifference(arr):
     else:
         return y - x
 ```
+
+# Counting Sort
+```python
+def countingSort(n, arr):
+    answer = [0] * n
+    for i in range(n):
+        answer[arr[i]] += 1
+    return answer[:max(arr)+1]
+```
+
+# Counting Valleys
+```python
+def countingValleys(steps, path):
+    answer = 0
+    pos = 0
+    flag = False
+    for i in range(steps):
+        if path[i] == 'U':
+            pos += 1
+        else:
+            pos -= 1
+        if pos < 0 and flag == False:
+            flag = True
+            answer += 1
+        if pos == 0 and flag == True:
+            flag = False
+    return answer
+```
+
+# Pangrams
+```python
+def pangrams(s):
+    arr = list(s.lower())
+    arr = [i for i in arr if i != ' ']
+    if len(set(arr)) == 26:
+        return 'pangram'
+    else:
+        return 'not pangram'
+```
+
+# Mars Exploration
+```python
+def marsExploration(s):
+    arr = list(s)
+    answer = 0
+    for i in range(len(arr)):
+        if i % 3 == 0 and arr[i] != 'S':
+            answer += 1
+        elif i % 3 == 1 and arr[i] != 'O':
+            answer += 1
+        elif i % 3 == 2 and arr[i] != 'S':
+            answer += 1
+    return answer
+```

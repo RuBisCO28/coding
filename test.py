@@ -1,16 +1,11 @@
-arr = [
-3,
-2147483647,
-1,
-0
-]
+def rotate_row(matrix, i):
+  matrix[i] = matrix[i][::-1]
+  print(matrix)
 
-def flippingBits(n):
-    n_bin = format(n, 'b')
-    s = list('{:032}'.format(int(n_bin)))
-    answer = [ '0' if s[i] == '1' else '1' for i in range(len(s))]
-    print(int(''.join(answer),2))
+def flip(matrix):
+  for i in range(len(matrix)):
+    rotate_row(matrix, i)
 
 if __name__ == '__main__':
-  for i in range(len(arr)):
-    flippingBits(arr[i])
+  matrix = [[112, 42, 83, 119], [56, 125, 56, 49], [15, 78, 101, 43], [62, 98, 114, 108]]
+  flip(matrix)
