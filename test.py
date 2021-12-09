@@ -24,9 +24,9 @@
 
 def flip(matrix):
   sums = 0
-  n = 1
-  for i in range(len(matrix)):
-    for j in range(len(matrix)):
+  n = int(len(matrix[0]) / 2)
+  for i in range(n):
+    for j in range(n):
       l = []
       l.append(matrix[i][j]) # current matrix
       l.append(matrix[2 * n - 1 - i][j])  # bottom left
@@ -34,9 +34,6 @@ def flip(matrix):
       l.append(matrix[2* n - 1 - i][2 * n - 1- j]) # bottom right
 
       maxv = max(l)
-      #print(l)
-      #print(max(l))
-
       sums += maxv
 
   return sums
@@ -44,3 +41,4 @@ def flip(matrix):
 if __name__ == '__main__':
   matrix = [[112, 42, 83, 119], [56, 125, 56, 49], [15, 78, 101, 43], [62, 98, 114, 108]]
   print(flip(matrix))
+
