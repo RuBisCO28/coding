@@ -1,44 +1,20 @@
-# def rotate_row(matrix, i):
-#   tmp = []
-#   for j in range(len(matrix)):
-#     if j == i:
-#       tmp.append(matrix[i][::-1])
-#     else:
-#       tmp.append(matrix[j])
-#   return tmp
-
-# def rotate_column(matrix, i):
-#   tmp = []
-#   for j in range(len(matrix)):
-#     if j == i:
-#       tmp.append(matrix[i][::-1])
-#     else:
-#       tmp.append(matrix[j])
-#   return tmp
-
-# def flip(matrix):
-#   for i in range(len(matrix)):
-#     tmp = rotate_row(matrix, i)
-#     print(tmp)
-#     print("\n")
-
-def flip(matrix):
-  sums = 0
-  n = int(len(matrix[0]) / 2)
-  for i in range(n):
-    for j in range(n):
-      l = []
-      l.append(matrix[i][j]) # current matrix
-      l.append(matrix[2 * n - 1 - i][j])  # bottom left
-      l.append(matrix[i][2 * n - 1- j]) # top right
-      l.append(matrix[2* n - 1 - i][2 * n - 1- j]) # bottom right
-
-      maxv = max(l)
-      sums += maxv
-
-  return sums
+def migratoryBirds(arr):
+  answer = {}
+  arr.sort()
+  for i in range(len(arr)):
+    if i == 0:
+      tmp = arr[i]
+      answer[str(arr[i])] = 1
+    elif arr[i] == tmp:
+      answer[str(tmp)] += 1
+    elif arr[i] != tmp:
+      answer[str(arr[i])] = 1
+      tmp = arr[i]
+    # print(i, arr[i], tmp, cnt, answer)
+  result = [kv for kv in answer.items() if kv[1] == max(answer.values())]
+  return int(result[0][0])
 
 if __name__ == '__main__':
-  matrix = [[112, 42, 83, 119], [56, 125, 56, 49], [15, 78, 101, 43], [62, 98, 114, 108]]
-  print(flip(matrix))
-
+  arr = [10, 20, 20, 10, 10, 30, 50, 10, 20]
+  arr = [1,2,3,4,5,4,3,2,1,3,4]
+  print(migratoryBirds(arr))
