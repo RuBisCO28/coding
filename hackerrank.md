@@ -359,3 +359,84 @@ def migratoryBirds(arr):
   result = [kv for kv in answer.items() if kv[1] == max(answer.values())]
   return int(result[0][0])
 ```
+
+# Maximum Perimeter Triangle
+```python
+def maximumPerimeterTriangle(sticks):
+  n = len(sticks)
+  answer = [-1]
+  sums = 0
+  for i in range(n):
+    for j in range(i, n):
+      if i != j:
+        for k in range(j, n):
+          if j != k:
+            if sticks[i] + sticks[j] > sticks[k] and sticks[i] + sticks[k] > sticks[j] and sticks[k] + sticks[j] > sticks[i]:
+              if sums < sticks[i] + sticks[j] + sticks[k]:
+                sums = sticks[i] + sticks[j] + sticks[k]
+                answer = [sticks[i],sticks[j],sticks[k]]
+  return sorted(answer)
+```
+
+# Zig Zag Sequence
+```python
+def findZigZagSequence(a, n):
+  a.sort()
+  mid = int((n + 1)/2) - 1
+  a[mid], a[n-1] = a[n-1], a[mid]
+
+  st = mid + 1
+  ed = n - 2
+  while(st < ed):
+    a[st], a[ed] = a[ed], a[st]
+    st = st + 1
+    ed = ed - 1
+```
+
+# Drawing Book
+```python
+def pageCount(n, p):
+  if n == p:
+    return 0
+  if n % 2 == 0:
+    if n - p > p - 1:
+      if n == 2:
+        return 0
+      if p % 2 == 0:
+        return int((p - 1) / 2) + 1
+      return int((p - 1) / 2)
+    else:
+      if p % 2 == 0:
+        return int((n - p) / 2)
+      return int((n - p) / 2) + 1
+  else:
+    if n - p > p - 1:
+      if n == 3:
+        return 0
+      if p % 2 == 0:
+        return int((p - 1) / 2) + 1
+      return int((p - 1) / 2)
+    else:
+      return int((n - p) / 2)
+  ```
+
+# getTotalX
+```python
+def getTotalX(a, b):
+  answer = 0
+  n = len(a)
+  m = len(b)
+  for i in range(a[n-1],b[0]+1):
+    cnt = 0
+    flag = True
+    for j in range(m):
+      if b[j] % i == 0:
+        cnt += 1
+    if cnt == len(b):
+      for k in range(n):
+        if i % a[k] != 0:
+          flag = False
+      if flag:
+        answer += 1
+  return answer
+```

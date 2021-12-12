@@ -1,20 +1,24 @@
-def migratoryBirds(arr):
-  answer = {}
-  arr.sort()
-  for i in range(len(arr)):
-    if i == 0:
-      tmp = arr[i]
-      answer[str(arr[i])] = 1
-    elif arr[i] == tmp:
-      answer[str(tmp)] += 1
-    elif arr[i] != tmp:
-      answer[str(arr[i])] = 1
-      tmp = arr[i]
-    # print(i, arr[i], tmp, cnt, answer)
-  result = [kv for kv in answer.items() if kv[1] == max(answer.values())]
-  return int(result[0][0])
+def getTotalX(a, b):
+  answer = 0
+  n = len(a)
+  m = len(b)
+  for i in range(a[n-1],b[0]+1):
+    cnt = 0
+    flag = True
+    for j in range(m):
+      if b[j] % i == 0:
+        cnt += 1
+    if cnt == len(b):
+      for k in range(n):
+        if i % a[k] != 0:
+          flag = False
+      if flag:
+        answer += 1
+  return answer
 
 if __name__ == '__main__':
-  arr = [10, 20, 20, 10, 10, 30, 50, 10, 20]
-  arr = [1,2,3,4,5,4,3,2,1,3,4]
-  print(migratoryBirds(arr))
+  a = [3, 4]
+  b = [24, 48]
+  # a = [2, 4]
+  # b = [16, 32, 96]
+  print(getTotalX(a,b))
