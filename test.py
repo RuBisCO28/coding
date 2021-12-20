@@ -1,24 +1,20 @@
-def getTotalX(a, b):
-  answer = 0
-  n = len(a)
-  m = len(b)
-  for i in range(a[n-1],b[0]+1):
-    cnt = 0
-    flag = True
-    for j in range(m):
-      if b[j] % i == 0:
+def pickingNumbers(a):
+  a.sort()
+  cnt = 0
+  max_cnt = 0
+  for i in range(len(a)):
+    cnt = 1
+    for j in range(i+1, len(a)):
+      if a[j] - a[i] > 1:
+        break
+      else:
         cnt += 1
-    if cnt == len(b):
-      for k in range(n):
-        if i % a[k] != 0:
-          flag = False
-      if flag:
-        answer += 1
-  return answer
+    # print(i,a[i],cnt)
+    if max_cnt < cnt:
+      max_cnt = cnt
+  return max_cnt
 
 if __name__ == '__main__':
-  a = [3, 4]
-  b = [24, 48]
-  # a = [2, 4]
-  # b = [16, 32, 96]
-  print(getTotalX(a,b))
+  # a = [4,6,5,3,3,1]
+  a = [1,2,2,3,1,2]
+  print(pickingNumbers(a))
