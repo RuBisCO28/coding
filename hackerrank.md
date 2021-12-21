@@ -459,3 +459,19 @@ def pickingNumbers(a):
       max_cnt = cnt
   return max_cnt
 ```
+
+# Left Rotation
+```python
+def rotateLeft(d, arr):
+  answer = [0] * len(arr)
+  s = len(arr)
+  for i in range(s):
+    pos = i - d + s
+    if pos == s:
+      answer[0] = arr[i]
+    elif pos > s:
+      answer[i-d] = arr[i]
+    else:
+      answer[i-d+s] = arr[i]
+  return answer
+```
