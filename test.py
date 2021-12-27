@@ -1,21 +1,26 @@
-def rotateLeft(d, arr):
-  answer = [0] * len(arr)
-  s = len(arr)
-  for i in range(s):
-    pos = i - d + s
-    if pos == s:
-      answer[0] = arr[i]
-    elif pos > s:
-      answer[i-d] = arr[i]
-    else:
-      print(i,i-d+s)
-      answer[i-d+s] = arr[i]
-  return answer
+import math
 
+def sequential(s,sub_string):
+  if not s: return True
+  if s.startswith(sub_string):
+    l = len(sub_string)
+    print(s[l:],str(int(sub_string)+1))
+    return sequential(s[l:],str(int(sub_string)+1))
+  return False
+
+def separateNumbers(s):
+  step = math.floor(len(s)/2)
+  for i in range(1, step + 1):
+    sub_string = s[:i]
+    if sequential(s,sub_string):
+      return "YES " + sub_string
+  return 'NO'
 
 if __name__ == '__main__':
-  arr = [1,2,3,4,5]
-  d = 4
-  # arr = [41,73,89,7,10,1,59,58,84,77,77,97,58,1,86,58,26,10,86,51]
-  # d = 10
-  print(rotateLeft(d, arr))
+  # s = "1234"
+  # s = "123745"
+  # s = "91011"
+  # s = "891011"
+  # s = "99100"
+  s = "9899100"
+  print(separateNumbers(s))

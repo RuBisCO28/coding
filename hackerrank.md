@@ -475,3 +475,36 @@ def rotateLeft(d, arr):
       answer[i-d+s] = arr[i]
   return answer
 ```
+
+# Number Line Jumps
+```python
+def kangaroo(x1, v1, x2, v2):
+  if v2 - v1 == 0:
+    return 'NO'
+  z = (x1 - x2) / (v2 - v1)
+  if z > 0 and z.is_integer():
+    return 'YES'
+  return 'NO'
+```
+
+# Separate the Numbers
+```python
+import math
+
+def sequential(s,sub_string):
+  if not s: return True
+  if s.startswith(sub_string):
+    l = len(sub_string)
+    return sequential(s[l:],str(int(sub_string)+1))
+  return False
+
+def separateNumbers(s):
+  step = math.floor(len(s)/2)
+  for i in range(1, step + 1):
+    sub_string = s[:i]
+    if sequential(s,sub_string):
+      return "YES " + sub_string
+  return "NO"
+```
+
+
