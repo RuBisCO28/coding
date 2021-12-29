@@ -507,4 +507,22 @@ def separateNumbers(s):
   return "NO"
 ```
 
-
+# Closest Numbers
+```python
+def closestNumbers(arr):
+  arr.sort()
+  print(arr)
+  min_diff = arr[1] - arr[0]
+  answer = []
+  for i in range(1, len(arr)):
+    if arr[i] - arr[i-1] < min_diff:
+      min_diff = arr[i] - arr[i-1]
+      answer = []
+      answer.append(arr[i-1])
+      answer.append(arr[i])
+    elif arr[i] - arr[i-1] == min_diff:
+      min_diff = arr[i] - arr[i-1]
+      answer.append(arr[i-1])
+      answer.append(arr[i])
+  return answer
+```
