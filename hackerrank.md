@@ -511,7 +511,6 @@ def separateNumbers(s):
 ```python
 def closestNumbers(arr):
   arr.sort()
-  print(arr)
   min_diff = arr[1] - arr[0]
   answer = []
   for i in range(1, len(arr)):
@@ -525,4 +524,82 @@ def closestNumbers(arr):
       answer.append(arr[i-1])
       answer.append(arr[i])
   return answer
+```
+
+# Tower Breakers
+```python
+def towerBreakers(n, m):
+  if m == 1:
+    return 2
+  else:
+    if n % 2 == 0:
+        return 2
+    else:
+        return 1
+```
+
+# Minimum Absolute Difference in an Array
+```python
+def minimumAbsoluteDifference(arr):
+  arr.sort()
+  answer = arr[1] - arr[0]
+  for i in range(1, len(arr)):
+    if abs(arr[i] - arr[i-1]) < answer:
+      answer = abs(arr[i] - arr[i-1])
+  return answer
+```
+
+# Caesar Cipher
+```python
+def caesarCipher(s, k):
+  la = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+  ua = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+  answer = []
+  k -= int(k / 26) * 26
+  for i in s:
+    if i.isalpha():
+      if i.islower():
+        if la.index(i)+k < 26:
+          answer.append(la[la.index(i)+k])
+        else:
+          answer.append(la[la.index(i)+k-26])
+      else:
+        if ua.index(i)+k < 26:
+          answer.append(ua[ua.index(i)+k])
+        else:
+          answer.append(ua[ua.index(i)+k-26])
+    else:
+      answer.append(i)
+  return ''.join(answer)
+```
+
+# Making Anagram
+```python
+# Time exceeded
+# def anagram(s):
+#   l = len(s)
+#   if l % 2 != 0:
+#     return -1
+#   else:
+#     hf = int(l / 2)
+#     first = s[:hf]
+#     second = list(s[hf:])
+#     cnt = 0
+#     for i in range(hf):
+#       if second.count(first[i]) > 0:
+#         second.remove(first[i])
+#       else:
+#         cnt += 1
+#     return cnt
+
+from collections import Counter
+
+def anagram(s):
+  if len(s) % 2 != 0:
+    return -1
+  else:
+    l = len(s)//2
+    a = Counter(s[:l])
+    b = Counter(s[l:])
+    return l-sum((a & b).values())
 ```

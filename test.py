@@ -1,22 +1,32 @@
+# def anagram(s):
+#   l = len(s)
+#   if l % 2 != 0:
+#     return -1
+#   else:
+#     hf = int(l / 2)
+#     first = s[:hf]
+#     second = list(s[hf:])
+#     cnt = 0
+#     for i in range(hf):
+#       if second.count(first[i]) > 0:
+#         second.remove(first[i])
+#       else:
+#         cnt += 1
+#     return cnt
 
-def closestNumbers(arr):
-  arr.sort()
-  print(arr)
-  min_diff = arr[1] - arr[0]
-  answer = []
-  for i in range(1, len(arr)):
-    if arr[i] - arr[i-1] < min_diff:
-      min_diff = arr[i] - arr[i-1]
-      answer = []
-      answer.append(arr[i-1])
-      answer.append(arr[i])
-    elif arr[i] - arr[i-1] == min_diff:
-      min_diff = arr[i] - arr[i-1]
-      answer.append(arr[i-1])
-      answer.append(arr[i])
-  return answer
+from collections import Counter
+
+def anagram(s):
+  if len(s) % 2 != 0:
+    return -1
+  else:
+    l = len(s)//2
+    a = Counter(s[:l])
+    b = Counter(s[l:])
+    return l-sum((a & b).values())
 
 if __name__ == '__main__':
-  arr = [-20,-3916237,-357920,-3620601,7374819,-7330761,30,6246457,-6461594,266854]
-  arr = [-20,-3916237,-357920,-3620601,7374819,-7330761,30,6246457,-6461594,266854,-520,-470]
-  print(closestNumbers(arr))
+  s = "aaab"
+  s = "xyyx"
+  s = "xaxbbbxx"
+  print(anagram(s))
