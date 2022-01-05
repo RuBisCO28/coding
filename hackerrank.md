@@ -603,3 +603,13 @@ def anagram(s):
     b = Counter(s[l:])
     return l-sum((a & b).values())
 ```
+
+# Max Min
+```python
+def maxMin(k, arr):
+  result = 1000000000
+  arr.sort()
+  for i in range(n-k+1):
+    result = min(result, arr[i+k-1]-arr[i])
+  return result
+```
