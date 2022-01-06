@@ -1,32 +1,38 @@
-# def anagram(s):
-#   l = len(s)
-#   if l % 2 != 0:
-#     return -1
-#   else:
-#     hf = int(l / 2)
-#     first = s[:hf]
-#     second = list(s[hf:])
-#     cnt = 0
-#     for i in range(hf):
-#       if second.count(first[i]) > 0:
-#         second.remove(first[i])
-#       else:
-#         cnt += 1
-#     return cnt
+def minimumNumber(n, password):
+  numbers = "0123456789"
+  lower_case = "abcdefghijklmnopqrstuvwxyz"
+  upper_case = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+  special_characters = "!@#$%^&*()-+"
 
-from collections import Counter
-
-def anagram(s):
-  if len(s) % 2 != 0:
-    return -1
+  mn = 4
+  nb = 0
+  lc = 0
+  uc = 0
+  sc = 0
+  for i in range(n):
+    if password[i] in numbers: nb += 1
+    if password[i] in lower_case: lc += 1
+    if password[i] in upper_case: uc += 1
+    if password[i] in special_characters: sc += 1
+  if nb > 0 and lc > 0 and uc > 0 and sc > 0:
+    if n < 6:
+      return 6 - n
+    else:
+      return 0
   else:
-    l = len(s)//2
-    a = Counter(s[:l])
-    b = Counter(s[l:])
-    return l-sum((a & b).values())
+    if nb > 0: mn -= 1
+    if lc > 0: mn -= 1
+    if uc > 0: mn -= 1
+    if sc > 0: mn -= 1
+    if 6 - n > mn:
+      return 6 - n
+    else:
+      return mn
 
 if __name__ == '__main__':
-  s = "aaab"
-  s = "xyyx"
-  s = "xaxbbbxx"
-  print(anagram(s))
+  password = "2bbbb"
+  password = "2bb#A"
+  # password = "Ab1"
+  n = 5
+  # n = 3
+  print(minimumNumber(n, password))
