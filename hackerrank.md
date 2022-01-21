@@ -647,3 +647,164 @@ def minimumNumber(n, password):
     else:
       return mn
 ```
+
+# dynamic array
+```python
+def queryOne(n, q, l):
+  if ( q[1] ^ l ) % n == 0:
+    return 0
+  else:
+    return 1
+
+def dynamicArray(n, q, queries):
+  tmp = [0] * n
+  lastAnswer = 0
+  answer = []
+  for i in range(n):
+    tmp[i] = []
+  for i in range(q):
+    if queries[i][0] == 1:
+      idx = queryOne(n, queries[i], lastAnswer)
+      tmp[idx].append(queries[i][2])
+    elif queries[i][0] == 2:
+      idx = queryOne(n, queries[i], lastAnswer)
+      lastAnswer = tmp[idx][queries[i][2] % len(tmp[idx])]
+      # print(idx, tmp[idx][queries[i][2] % len(tmp[idx])])
+      answer.append(lastAnswer)
+  return answer 
+
+if __name__ == '__main__':
+  n = 2
+  q = 5
+  queries = [[1,0,5],[1,1,7],[1,0,3],[2,1,0],[2,1,1]]
+  print(dynamicArray(n, q, queries))
+
+def dynamicArray(n, queries):
+  sequences = [[] for _ in range(n)]
+  last_answer = 0
+  answer = []
+    
+  for i in range(q):
+    q_type = queries[i][0]
+    x = queries[i][1]
+    y = queries[i][2]
+    seq_num = (x ^ last_answer) % n
+        
+    if q_type == 2:
+      last_answer = sequences[seq_num][y % len(sequences[seq_num])]
+      answer.append(last_answer)
+    else:
+      sequences[seq_num].append(y)
+  return answer
+```
+
+# smartnumber2
+```python
+def is_smart_number(num):
+  val = int(math.sqrt(num))
+  if ((num / val) - int(num / val) == 0) and (num % math.sqrt(num) == 0):
+    return True
+  return False
+```
+
+# Missing Numbers
+```python
+def missingNumbers(arr, brr):
+  answer = []
+  dsct = list(set(brr))
+  for i in range(len(dsct)):
+    if arr.count(dsct[i]) != brr.count(dsct[i]):
+      answer.append(dsct[i])
+  return answer
+```
+
+# The fulling count sort
+```python
+# wrong answer
+#def countSort(arr):
+#  seq = [[] for _ in range(n)]
+#  answer = []
+#  for i in range(n):
+#    seq[i].append(arr[i][0])
+#    seq[i].append(i)
+#    seq[i].append(arr[i][1])
+#  s_arr = sorted(seq)
+#  half = n / 2
+#  for j in range(n):
+#    if s_arr[j][1] < half:
+#      answer.append('-')
+#    else:
+#      answer.append(s_arr[j][2])
+#  print(' '.join(answer))
+  
+def countSort(arr):
+  tmp = []
+  for i in range(n):
+    x = int(arr[i][0])
+    s = str(arr[i][1])
+        
+    if i < n//2:
+      tmp.append((x, "-"))
+    else:
+      tmp.append((x, s))
+      
+  print(" ".join(map(lambda x: x[1], sorted(tmp, key = lambda x: x[0]))))
+```
+
+# Grid Challenge
+```python
+def gridChallenge(grid):
+  v_grid = [[] for _ in range(len(grid[0]))]
+  for i in range(n):
+    s_arr = sorted(grid[i])
+    for j in range(len(grid[0])):
+      v_grid[j].append(s_arr[j])
+  for k in range(len(grid[0])):
+    if v_grid[k] != sorted(v_grid[k]):
+      return 'NO'
+  return 'YES'
+```
+
+# SansaXOR
+```python
+from functools import reduce
+
+def sansaXor(n, arr):
+  c = 0
+  answer = "A"
+  while(c < n):
+    for i in range(c+1):
+      # print(arr[i:n-c+i])
+      pair = arr[i:n-c+i] 
+      if answer == "A":
+        answer = reduce(lambda x, y: x ^ y, pair)
+      else:
+        answer ^= reduce(lambda x, y: x ^ y, pair)
+    c += 1
+  return answer
+
+def sansaXor(arr):
+  c = 0
+  answer = 0
+  if len(arr) % 2 == 0:
+    return 0
+  for ind in range(0, len(arr), 2):
+    answer ^= arr[ind]
+  return answer
+```
+
+# fibonacci
+```python
+def calc(t1, t2):
+  return t1 + (t2 * t2)
+
+def fibonacciModified(t1, t2, n):
+  a = t1
+  b = t2
+  c = 0
+  for i in range(n-2):
+    c = calc(a, b)
+    a = b
+    b = c
+  return c
+```
