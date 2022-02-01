@@ -1,65 +1,79 @@
-month = []
+import copy
 
-def updateLeapYear(year):
-  if year % 400 == 0:
-    month[2] = 28
-  elif year % 100 == 0:
-    month[2] = 29
-  elif year % 4 == 0:
-    month[2] = 29
-  else:
-    month[2] = 28
+r = 6
+c = 7
 
-def storeMonth():
-  month[1] = 31
-  month[2] = 28
-  month[3] = 31
-  month[4] = 30
-  month[5] = 31
-  month[6] = 30
-  month[7] = 31
-  month[8] = 31
-  month[9] = 30
-  month[10] = 31
-  month[11] = 30
-  month[12] = 31
+def markBomb(og, ng):
+  for i in range(r):
+    for j in range(c):
+      if og[i][j] == 'O':
+        # center
+        ng[i][j] = '-'
+        # top
+        if i > 0:
+          ng[i-1][j] = '-'
+        # bottom
+        if i < r - 1:
+          ng[i+1][j] = '-'
+        # left
+        if j > 0:
+          ng[i][j-1] = '-'
+        # right
+        if j < c - 1:
+          ng[i][j+1] = '-'
+  return ng
 
-def findPrimeDates(d1, m1, y1, d2, m2, y2):
-  storeMonth()
-  result = 0
+def plantBomb(ng):
+  for i in range(r):
+    for j in range(c):
+      if ng[i][j] == '.':
+        ng[i][j] = 'O'
+  return ng
 
-  # 2082025
-  # 31082025
-  # 4092025
-  # 31092025
-  while(True):
-    x = d1
-    x = x * 100 + m1
-    x = x * 1000 + y1
-    if x % 4 == 0 and x % 7 == 0:
-      result = result + 1
-    if d1 == d2 and m1 == m2 and y1 == y2:
-      break
-    updateLeapYear(y1)
-    d1 = d1 + 1
-    if d1 > month[m1]:
-      m1 = m1 + 1
-      d1 = 1
-      if m1 > 12:
-        y1 =  y1 + 1
-        m1 = m1 + 1
-  return result;
+def detonateBomb(ng):
+  for i in range(r):
+    for j in range(c):
+      if ng[i][j] == '-':
+        ng[i][j] = '.'
+  return ng
+
+def bomberMan(n, grid):
+  og = []
+  ng = []
+  answer = []
+  for i in range(r):
+    og.append(list(grid[i]))
+    print(og[i])
+  for i in range(r):
+    ng.append(list(grid[i]))
+  print("-------------")
+  for i in range(1, n + 1):
+    if i % 3 == 1:
+      ng = markBomb(og, ng)
+      for i in range(r):
+        print(ng[i])
+      print("-------------")
+    elif i % 3 == 2:
+      ng = plantBomb(ng)
+      for i in range(r):
+        print(ng[i])
+      print("-------------")
+    elif i % 3 == 0:
+      ng = detonateBomb(ng)
+      og = []
+      for i in range(r):
+        og.append(copy.deepcopy(ng[i]))
+        print(og[i])
+      print("-------------")
+  for i in range(r):
+    ng[i] = ['.' if j== '-' else j for j in ng[i]]
+    answer.append(''.join(ng[i]))
+    print(answer[i])
+  return answer
 
 if __name__ == '__main__':
-  for i in range(1, 15):
-    month.append(31)
+  n = 3
+  grid =['.......', '...O...', '....O..',\
+         '.......', 'OO.....', 'OO.....']
+  result = bomberMan(n, grid)
 
-  d1 = int(2)
-  m1 = int(8)
-  y1 = int(2025)
-  d2 = int(4)
-  m2 = int(9)
-  y2 = int(2025)
-
-result = findPrimeDates(d1, m1, y1, d2, m2, y2)
-print(result)

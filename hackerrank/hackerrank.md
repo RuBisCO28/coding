@@ -808,3 +808,455 @@ def fibonacciModified(t1, t2, n):
     b = c
   return c
 ```
+
+# prime date
+```python
+import re
+month = []
+
+def updateLeapYear(year):
+    if year % 400 == 0:
+        month[2] = 29
+    elif year % 100 == 0:
+        month[2] = 28
+    elif year % 4 == 0:
+        month[2] = 29
+    else:
+        month[2] = 28
+
+def storeMonth():
+    month[1] = 31
+    month[2] = 28
+    month[3] = 31
+    month[4] = 30
+    month[5] = 31
+    month[6] = 30
+    month[7] = 31
+    month[8] = 31
+    month[9] = 30
+    month[10] = 31
+    month[11] = 30
+    month[12] = 31
+
+def findPrimeDates(d1, m1, y1, d2, m2, y2):
+    storeMonth()
+    result = 0
+
+    while(True):
+        x = d1
+        x = x * 100 + m1
+        x = x * 10000 + y1
+        if x % 4 == 0 or x % 7 == 0:
+            result = result + 1
+        if d1 == d2 and m1 == m2 and y1 == y2:
+            break
+        updateLeapYear(y1)
+        d1 = d1 + 1
+        if d1 > month[m1]:
+            m1 = m1 + 1
+            d1 = 1
+            if m1 > 12:
+                y1 =  y1 + 1
+                m1 = 1
+    return result;
+
+for i in range(1, 15):
+    month.append(31)
+
+line = input()
+date = re.split('-| ', line)
+d1 = int(date[0])
+m1 = int(date[1])
+y1 = int(date[2])
+d2 = int(date[3])
+m2 = int(date[4])
+y2 = int(date[5])
+
+result = findPrimeDates(d1, m1, y1, d2, m2, y2)
+print(result)
+```
+
+# sherlock and array
+```python
+def balancedSums(arr):
+  l = 0
+  r = 0
+  arr = [i for i in arr if i != 0]
+  n = len(arr)
+  for i in range(n):
+    if i == 0:
+      l = [0]
+      r = arr[i+1:]
+    elif i == n - 1:
+      l = arr[:i]
+      r = [0]
+    else:
+      l = arr[:i]
+      r = arr[i+1:]
+    if sum(l) == sum(r):
+      return 'YES'
+  return 'NO'
+
+def balancedSums(arr):
+  l = 0
+  r = sum(arr)
+  for i in range(n):
+    r -= arr[i]
+    if r == l:
+      return 'YES'
+    l += arr[i]
+  return 'NO'
+```
+
+# Misère Nim
+```python
+def misereNim(s):
+  if set(s) == {1}:
+    if len(s) % 2 == 0:
+      return 'First'
+    else:
+      return 'Second'
+
+  res = reduce((lambda x, y: x ^ y), s)
+  if res == 0:
+    return 'Second'
+  else:
+    return 'First'
+```
+
+# Gaming Array 1
+```python
+# time exceeded
+#def gamingArray(arr):
+#  mi = 0
+#  winner = 0
+#  while True:
+#    mi = arr.index(max(arr))
+#    arr = arr[:mi]
+#    if len(arr) == 0:
+#      break
+#    winner += 1
+#  if winner % 2 == 0:
+#    return 'BOB'
+#  else:
+#    return 'ANDY'
+  
+def gamingArray(arr):
+  m = 0
+  c = 0
+  for i in arr:
+    if i > m:
+      m = i
+      c += 1
+  if c % 2 == 0:
+    return 'ANDY'
+  else:
+    return 'BOB'
+```
+
+# Forming a Magic Square
+```python
+import sys
+
+matrix_list = [
+[[8, 1, 6], [3, 5, 7], [4, 9, 2]],
+[[6, 1, 8], [7, 5, 3], [2, 9, 4]],
+[[4, 9, 2], [3, 5, 7], [8, 1, 6]],
+[[2, 9, 4], [7, 5, 3], [6, 1, 8]], 
+[[8, 3, 4], [1, 5, 9], [6, 7, 2]],
+[[4, 3, 8], [9, 5, 1], [2, 7, 6]], 
+[[6, 7, 2], [1, 5, 9], [8, 3, 4]], 
+[[2, 7, 6], [9, 5, 1], [4, 3, 8]],
+]
+
+def formingMagicSquare(s):
+  cost_list = [sys.maxsize]
+  for ref_mat in matrix_list:
+    cost = 0
+    for x in range(0, len(s)):
+      for y in range(0, len(s)):
+        if s[x][y] != ref_mat[x][y]:
+          cost += abs(s[x][y] - ref_mat[x][y])
+    cost_list.append(cost)
+  print(cost_list)
+  return min(cost_list)
+```
+
+# Recursive Digit Sum
+```python
+# time exceeded
+def sd(p):
+  arr = str(p)
+  num = 0
+  for i in str(p):
+    num += int(i)
+  if len(arr) == 1:
+    return p 
+  else:
+    answer = sd(num)
+    return answer
+
+def superDigit(n, k):
+  ori = ""
+  for i in range(k):
+    ori += n
+  return sd(ori)
+
+
+def sd(p):
+  arr = str(p)
+  num = 0
+  for i in str(p):
+    num += int(i)
+  if len(arr) == 1:
+    return p 
+  else:
+    answer = sd(num)
+    return answer
+
+def superDigit(n, k):
+  ori = str(k*sum([int(i) for i in n]))
+  return sd(ori)
+
+def sd(p):
+  if len(p) == 1:
+    return int(p) 
+  else:
+    num = str(sum([int(i) for i in p]))
+    return sd(num)
+
+def superDigit(n, k):
+  ori = str(k*sum([int(i) for i in n]))
+  return sd(ori)
+```
+
+# Counter Game
+```python
+def counterGame(n):
+  flag = True
+  while True:
+    if n == 1:
+      break
+    if ((n&(n-1)) == 0):
+      n = int(n / 2)
+    else:
+      n -= int(2 ** math.floor(math.log2(n)))
+    flag = not flag
+  if flag:
+    return 'Richard'
+  else:
+    return 'Louise'
+```
+
+# Sum vs XOR
+```python
+def sumXor(n):
+  cnt = 0
+  if n == 0:
+    return 1
+  if (n&(n-1)) == 0:
+    return n
+  for i in range(n):
+    if n + i == n ^ i:
+      cnt+=1
+  return cnt
+
+# (n+i)=(n^i)+2*(n&i)
+# (n+i) = (n^i) => n & i = 0
+# andして桁がcarryしなければよい -> 0の数を数えて2**(0の数)
+def sumXor(n):
+  unset_bits = 0
+  while(n):
+    if n & 1 == 0:
+      unset_bits += 1
+    n = n >> 1
+  return 1 << unset_bits
+```
+
+# Parindrom Index
+```python
+# time exceeded
+def palindromeIndex(s):
+  #print(s)
+  l = len(s)
+  answer = -1
+  tmp = s
+  if len(set(tmp)) == 1:
+    return answer
+  for i in range(l):
+    arr = s[0:i] + s[i+1:l]
+    #print("arr: ", arr)
+    answer = 0
+    m = len(arr)
+    if m % 2 == 0:
+      rarr = list(reversed(arr[m//2:]))
+      if arr[:m//2] == ''.join(rarr):
+        if s[i] == s[i+1]:
+          return i+1
+        else:
+          return i
+    else:
+      if arr[:(m//2)] == arr[(m//2)+1:]:
+        return i
+  return answer
+
+if __name__ == '__main__':
+  s = []
+  s.append("aaab")
+  s.append("baa")
+  s.append("aaa")
+  s.append("quyjjdcgsvvsgcdjjyq")
+  s.append("hgygsvlfwcwnswtuhmyaljkqlqjjqlqkjlaymhutwsnwcflvsgygh")
+  s.append("fgnfnidynhxebxxxfmxixhsruldhsaobhlcggchboashdlurshxixmfxxxbexhnydinfngf")
+  s.append("bsyhvwfuesumsehmytqioswvpcbxyolapfywdxeacyuruybhbwxjmrrmjxwbhbyuruycaexdwyfpaloyxbcpwsoiqtymhesmuseufwvhysb")
+  s.append("fvyqxqxynewuebtcuqdwyetyqqisappmunmnldmkttkmdlnmnumppasiqyteywdquctbeuwenyxqxqyvf")
+  s.append("mmbiefhflbeckaecprwfgmqlydfroxrblulpasumubqhhbvlqpixvvxipqlvbhqbumusaplulbrxorfdylqmgfwrpceakceblfhfeibmm")
+  s.append("tpqknkmbgasitnwqrqasvolmevkasccsakvemlosaqrqwntisagbmknkqpt")
+  s.append("lhrxvssvxrhl")
+  s.append("prcoitfiptvcxrvoalqmfpnqyhrubxspplrftomfehbbhefmotfrlppsxburhyqnpfmqlaorxcvtpiftiocrp")
+  s.append("kjowoemiduaaxasnqghxbxkiccikxbxhgqnsaxaaudimeowojk")
+  for i in s:
+    print(palindromeIndex(i))
+
+def palindromeIndex(s):
+  l = len(s)
+  i = 0
+  j = l-1
+  while i<l:
+    if s[i]!=s[j]:
+      break
+    i+=1
+    j-=1
+  if i>j: return -1
+  a = i+1
+  b = j
+  while a<j and b>i+1:
+    if s[a]!=s[b]:
+      return j
+    a+=1
+    b-=1
+  return i
+```
+
+# The BomberMan Game
+```python
+# my wrong answer
+r = 6
+c = 7
+
+def markBomb(og, ng):
+  for i in range(r):
+    for j in range(c):
+      if og[i][j] == 'O':
+        # center
+        ng[i][j] = '-'
+        # top
+        if i > 0:
+          ng[i-1][j] = '-'
+        # bottom
+        if i < r - 1:
+          ng[i+1][j] = '-'
+        # left
+        if j > 0:
+          ng[i][j-1] = '-'
+        # right
+        if j < c - 1:
+          ng[i][j+1] = '-'
+  return ng
+
+def plantBomb(ng):
+  for i in range(r):
+    for j in range(c):
+      if ng[i][j] == '.':
+        ng[i][j] = 'O'
+  return ng
+
+def detonateBomb(ng):
+  for i in range(r):
+    for j in range(c):
+      if ng[i][j] == '-':
+        ng[i][j] = '.'
+  return ng
+
+def bomberMan(n, grid):
+  og = []
+  ng = []
+  answer = []
+  for i in range(r):
+    og.append(list(grid[i]))
+    print(og[i])
+  for i in range(r):
+    ng.append(list(grid[i]))
+  print("-------------")
+  for i in range(1, n + 1):
+    if i % 3 == 1:
+      ng = markBomb(og, ng)
+      for i in range(r):
+        print(ng[i])
+      print("-------------")
+    elif i % 3 == 2:
+      ng = plantBomb(ng)
+      for i in range(r):
+        print(ng[i])
+      print("-------------")
+    elif i % 3 == 0:
+      ng = detonateBomb(ng)
+      og = []
+      for i in range(r):
+        og.append(ng[i])
+        print(og[i])
+      print("-------------")
+  for i in range(r):
+    ng[i] = ['.' if j== '-' else j for j in ng[i]]
+    answer.append(''.join(ng[i]))
+    print(answer[i])
+  return answer
+
+if __name__ == '__main__':
+  n = 3
+  grid =['.......', '...O...', '....O..',\
+         '.......', 'OO.....', 'OO.....']
+  result = bomberMan(n, grid)
+
+# answer
+def bomberMan(n, grid):
+    def timeLaps(g):
+        t = list(map(lambda r:list(map(int,r.replace('O','1').replace('.','2') )),g))
+        for i in range(len(t)):
+            for j in range(len(t[i])):
+                if t[i][j] == 1:
+                    t[i][j] = 3
+                    # up
+                    if i-1 >= 0:
+                        if t[i-1][j] != 3:
+                            t[i-1][j] = 3
+                    # down
+                    if i+1 < len(t):
+                        if t[i+1][j] != 1:
+                            t[i+1][j] = 3
+                    # left
+                    if j-1 >= 0:
+                        if t[i][j-1] != 3:
+                            t[i][j-1] = 3
+                    # right
+                    if j+1 < len(t[i]):
+                        if t[i][j+1] != 1:
+                            t[i][j+1] = 3
+                elif t[i][j] != 3:
+                    t[i][j] -= 1
+        _t = list(map(lambda r: ''.join(list(map(str,r))), t))
+        return list(map(lambda r: r.replace('1','O').replace('3','.'), _t))
+
+    if n == 1:
+        return grid
+    elif n == 2:
+        return list(map(lambda row: row.replace('.', 'O'), grid))
+    else:
+        if ((n - 1) / 2) % 2 == 1:
+            return timeLaps(grid)
+        elif ((n - 1) / 2) % 2 == 0:
+            temp_grid = timeLaps(grid)
+            return timeLaps(temp_grid)
+        else:
+            return list(map(lambda row: row.replace('.', 'O'), grid))
+```
