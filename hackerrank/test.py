@@ -1,35 +1,16 @@
-n = 8
+n = 6
 
-def minimumBribes(q):
-  ori = [i for i in range(1,n+1)]
-  answer = 0
+def pylons(k, arr):
+  r = k - 1
   for i in range(n):
-    print(i, ori[i], q[i])
-    print("before", ori)
-    if ori[i] != q[i]:
-      m = abs(ori.index(q[i])-i)
-      answer += m
-      if m <= 2:
-        tmp = []
-        tmp += ori[:i]
-        tmp += [ori[i+m]]
-        tmp += ori[i:i+m] 
-        if i+m != n - 1:
-          tmp += ori[i+m+1:]
-          print(ori[:i], ori[i+m], ori[i:i+m], ori[i+m+1:], m)
-        else:
-          print(ori[:i], ori[i+m], ori[i:i+m], m)
-        ori = tmp
-      else:
-        return 'Too chaotic'
-    print("after", ori)
-  return answer
+    if arr[i] == 0:
+      if i+r <= n-1:
+        print(i, i+r, arr[i:i+r])
+      if i-r >= 0:
+        print(i-r, i, arr[i-r:i])
 
 if __name__ == '__main__':
-  q = [5,1,2,3,7,8,6,4]
-  q = [1,2,5,3,7,8,6,4]
-  print("goal", q)
-  print("**********")
-  result = minimumBribes(q)
-  print(result)
+  k = 2
+  arr = [0,1,1,1,1,0]
+  print(pylons(k, arr))
 
