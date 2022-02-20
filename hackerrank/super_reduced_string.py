@@ -19,10 +19,3 @@ if __name__ == '__main__':
   s = "aaabccddd"
   s = "abba"
   print(superReducedString(s))
-
-
-
-# aaabccddd
-# abccddd
-# abddd
-# abd
