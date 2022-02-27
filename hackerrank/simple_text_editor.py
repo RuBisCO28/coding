@@ -1,15 +1,3 @@
-# if __name__ == '__main__':
-#   arr = []
-#   nq = int(input())
-#   for _ in range(nq):
-#     l = str(input()).split()
-#     if l[0] == '1':
-#       arr.append(l[1])
-#     elif l[0] == '2':
-#       arr.pop(0)
-#     elif l[0] == '3':
-#       print(arr[0])
-
 if __name__ == '__main__':
   # nq = 8
   # ope = ['1 abc','3 3','2 3','1 xy','3 2', '4', '4', '3 1']
@@ -43,5 +31,5 @@ if __name__ == '__main__':
       print(h[p-1][int(l[1])-1])
     elif l[0] == '4':
       p -= 1
-    print(l[0], i, p, h)
+    # print(l[0], i, p, h)
     i += 1
