@@ -1,7 +1,7 @@
 def almostSorted(arr):
   arr_s = sorted(arr)
   dfi = [i for i in range(len(arr)) if (arr[i] - arr_s[i]) != 0]
-  print(dfi)
+  # print(dfi)
   l = len(dfi)
   if l == 0:
     print("yes")

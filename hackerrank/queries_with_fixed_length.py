@@ -20,10 +20,10 @@ def solve(arr, queries):
     was_first = False
     for j in range(len(arr)-d+1):
       if j == 0 or was_first == True:
-        # print(arr[i:i+d])
+        print(arr[j:j+d],was_first)
         maxes.append(max(arr[j:j+d]))
       else:
-        # print("max({}, {})".format(maxes[-1], arr[i+d-1]))
+        print("max({}, {})".format(maxes[-1], arr[j+d-1]))
         maxes.append(max(maxes[-1], arr[j+d-1]))
 
       if maxes[-1] == arr[j]:
@@ -38,6 +38,3 @@ if __name__ == '__main__':
   arr = [33,11,44,11,55]
   queries = [1,2,3,4,5]
   print(solve(arr, queries))
-
-# 1,2,3,4,5
-# 11,33,44,44,55
