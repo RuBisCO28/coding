@@ -14,20 +14,25 @@
 #     print(i,(queries[i][0]-1),queries[i][1]-1)
 #   return max_v
 
-from collections import Counter
-
 def arrayManipulation(n, queries):
-  c = Counter()
-  for start,end,k in queries:
-    c[start] += k
-    c[end+1] -= k
-  arrSum = 0
-  maxSum = 0
-  for i in sorted(c)[:-1]:
-    arrSum += c[i]
-    print(c,i,arrSum)
-    maxSum = max(maxSum,arrSum)
-  return maxSum
+  array = [0] * (n + 1)
+
+  for query in queries:
+    a = query[0] - 1
+    b = query[1]
+    k = query[2]
+    array[a] += k
+    array[b] -= k
+
+  max_value = 0
+  running_count = 0
+  print(array)
+  for i in array:
+    running_count += i
+    if running_count > max_value:
+      max_value = running_count
+
+  return max_value
 
 if __name__ == '__main__':
   n = 5
