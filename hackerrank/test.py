@@ -1,46 +1,45 @@
-def newPositions(grid, dp, x, y, n):
-  ranges = [
-    [[x, y] for x in range(x + 1, n)],
-    [[x, y] for x in range(x - 1, -1, -1)],
-    [[x, y] for y in range(y + 1, n)],
-    [[x, y] for y in range(y - 1, -1, -1)]
-  ]
-  result = []
-  for r in ranges:
-    for [x, y] in r:
-      if grid[x][y] == 'X' or dp[x][y] != -1:
-        break
-      result.append([x, y])
-  return result
-
-def minimumMoves(grid, startX, startY, goalX, goalY):
-  grid = [list(row) for row in grid]
-  n = len(grid)
-  dp = [[-1 for i in range(n)] for i in range(n)]
-  move = 0
-  dp[startX][startY] = move
-  currentPositions = [[startX, startY]]
-  while len(currentPositions) > 0:
-    nextPositions = []
-    for [x, y] in currentPositions:
-      nextPositions += newPositions(grid, dp, x, y, n)
-    move += 1
-    for [x, y] in nextPositions:
-      dp[x][y] = move
-    currentPositions = nextPositions
-  return dp[goalX][goalY]
+def bfs(n, m, edges, s):
+  d = {}
+  for i in range(n):
+    d[i+1] = []
+  for j in range(len(edges)):
+    arr = []
+    if edges[j][0] in d.keys() and edges[j][1] in d.keys():
+      d[edges[j][0]].append(edges[j][1])
+      d[edges[j][1]].append(edges[j][0])
+      d[edges[j][0]] += d[edges[j][1]]
+      arr = list(set(d[edges[j][0]]))
+      for k in arr:
+        d[k] = arr
+    elif edges[j][0] in d.keys() and edges[j][1] not in d.keys():
+      d[edges[j][0]].append(edges[j][1])
+      for k in d[edges[j][0]]:
+        d[k] = d[edges[j][0]]
+    elif edges[j][0] not in d.keys() and edges[j][1] in d.keys():
+      d[edges[j][1]].append(edges[j][0])
+      for k in d[edges[j][1]]:
+        d[k] = d[edges[j][1]]
+  answer = []
+  print(d)
+  for l in d.keys():
+    if l != s:
+      if len(d[l]) > 0:
+        ln = len(d[l]) - 1
+        if s in d[l]:
+          ln -= 1
+        answer.append(ln*6)
+      else:
+        answer.append(-1)
+  return answer
 
 if __name__ == "__main__":
-  grid = ['.X.','.X.', '...']
-  startX = 0
-  startY = 0
-  goalX = 0
-  goalY = 2
-  print(minimumMoves(grid, startX, startY, goalX, goalY))
+  # n = 4
+  # m = 2
+  # edges = [[1,2],[1,3]]
+  # s = 1
+  n = 5
+  m = 3
+  edges = [[1,2],[1,3],[3,4]]
+  s = 1
+  print(bfs(n, m, edges, s))
 
-# .X.
-# .X.
-# ...
-
-# 0,0 -> 2,0 -> 2,2 -> 0,2
-# 探索してるぽい
