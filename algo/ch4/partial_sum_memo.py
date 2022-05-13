@@ -29,5 +29,6 @@ def partial_sum_memo(n,w,a):
 if __name__ == "__main__":
   n = 4
   w = 14
-  a = 3,2,6,5
+  a = [3,2,6,5]
   print(partial_sum_memo(n,w,a))
+  print(memo)
