@@ -1,5 +1,7 @@
 from typing import Optional
 
+# https://developpaper.com/leetcode-111-minimum-depth-of-binary-tree-python/
+
 # Definition for a binary tree node.
 class TreeNode:
   def __init__(self, val=0, left=None, right=None):
@@ -9,6 +11,10 @@ class TreeNode:
 
 class Solution:
   def minDepth(self, root: Optional[TreeNode]) -> int:
+    if root is not None:
+      print(root.val)
+    else:
+      print("root is None")
     if root is None:
       return 0
 
